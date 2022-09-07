@@ -9,112 +9,121 @@
 #include "misc.h"
 #include "elf_header.h"
 
-/*const char * const osabi[] = {
-	"UNIX System V ABI", "HP-UX ABI", "NetBSD ABI", "Linux ABI",
-	"Solaris ABI", "IRIX ABI", "FreeBSD ABI", "TRU64 UNIX ABI",
-	"OpenBSD ABI", "ARM architecture ABI", "Stand-alone (embedded) ABI"
-};*/
+enum {
+	OSABI_UNKNOWN = 0,
+	OSABI_SYSV,
+	OSABI_HPUX,
+	OSABI_NETBSD,
+	OSABI_LINUX,
+	OSABI_SOLARIS,
+	OSABI_IRIX,
+	OSABI_FREEBSD,
+	OSABI_TRU64,
+	OSABI_OPENBSD,
+	OSABI_ARM,
+	OSABI_STANDALONE
+};
 
-static const char * const type[] = {
+enum {
+	MACHINE_UNKNOWN = 0,
+	MACHINE_INTEL386,
+	MACHINE_INTEL8086,
+	MACHINE_MIPS,
+	MACHINE_PPC,
+	MACHINE_PPC64,
+	MACHINE_ARM,
+	MACHINE_SPARC,
+	MACHINE_IA_64,
+	MACHINE_MIPS_X,
+	MACHINE_X86_64,
+	MACHINE_MSCT_ELBRUS,
+	MACHINE_AARCH64,
+	MACHINE_RISCV
+};
+
+static const char *osabi[] = {
+	"Unknown", "UNIX System V ABI", "HP-UX ABI", "NetBSD ABI",
+	"Linux ABI", "Solaris ABI", "IRIX ABI", "FreeBSD ABI",
+	"TRU64 UNIX ABI", "OpenBSD ABI", "ARM architecture ABI",
+	"Stand-alone (embedded) ABI"
+};
+
+static const char *type[] = {
 	"Unknown type", "Relocatable file", "Executable file",
 	"Shared object file", "Core file"
 };
 
-/*const char * const machine[] = {
-	"Intel 80386", "Intel 80860", "MIPS R3000 big-endiad",
+static const char *machine[] = {
+	"Unknown", "Intel 80386", "Intel 80860", "MIPS R3000 big-endiad",
 	"PowerPC", "PowerPC 64-bit", "ARM", "SPARC v9 64-bit",
-	"Intel Merced", "Stanford MIPS-X", "AMD x86-64 architecture",
+	"Intel Itanium", "Stanford MIPS-X", "AMD x86-64",
 	"MCST Elbrus", "ARM AARCH64", "RISC-V"
-};*/
+};
 
-static const char* get_elf_osabi(uint8_t osabi)
+static const char* get_elf_osabi(uint8_t osabi_code)
 {
-	switch(osabi)
+	switch(osabi_code)
 	{
 	case ELFOSABI_SYSV:
-		return "UNIX System V ABI";
-		break;
+		return osabi[OSABI_SYSV];
 	case ELFOSABI_HPUX:
-		return "HP-UX ABI";
-		break;
+		return osabi[OSABI_HPUX];
 	case ELFOSABI_NETBSD:
-		return "NetBSD ABI";
-		break;
+		return osabi[OSABI_NETBSD];
 	case ELFOSABI_LINUX:
-		return "Linux ABI";
-		break;
+		return osabi[OSABI_LINUX];
 	case ELFOSABI_SOLARIS:
-		return "Solaris ABI";
-		break;
+		return osabi[OSABI_SOLARIS];
 	case ELFOSABI_IRIX:
-		return "IRIX ABI";
-		break;
+		return osabi[OSABI_IRIX];
 	case ELFOSABI_FREEBSD:
-		return "FreeBSD ABI";
-		break;
+		return osabi[OSABI_FREEBSD];
 	case ELFOSABI_TRU64:
-		return "TRU64 UNIX ABI";
-		break;
+		return osabi[OSABI_TRU64];
 	case ELFOSABI_OPENBSD:
-		return "OpenBSD ABI";
-		break;
+		return osabi[OSABI_OPENBSD];
 	case ELFOSABI_ARM:
-		return "ARM architecture ABI";
-		break;
+		return osabi[OSABI_ARM];
 	case ELFOSABI_STANDALONE:
-		return "Stand-alone (embedded) ABI";
-		break;
+		return osabi[OSABI_STANDALONE];
 	}
 
-	return "unknown";
+	return osabi[OSABI_UNKNOWN];
 }
 
-static const char* get_elf_machine(uint16_t machine)
+static const char* get_elf_machine(uint16_t machine_code)
 {
-	switch(machine)
+	switch(machine_code)
 	{
 	case EM_386:
-		return "Intel 80386";
-		break;
+		return machine[MACHINE_INTEL386];
 	case EM_860:
-		return "Intel 80860";
-		break;
+		return machine[MACHINE_INTEL8086];
 	case EM_MIPS:
-		return "MIPS R3000 big-endiad";
-		break;
+		return machine[MACHINE_MIPS];
 	case EM_PPC:
-		return "PowerPC";
-		break;
+		return machine[MACHINE_PPC];
 	case EM_PPC64:
-		return "PowerPC 64-bit";
-		break;
+		return machine[MACHINE_PPC64];
 	case EM_ARM:
-		return "ARM";
-		break;
+		return machine[MACHINE_ARM];
 	case EM_SPARCV9:
-		return "SPARC v9 64-bit";
-		break;
+		return machine[MACHINE_SPARC];
 	case EM_IA_64:
-		return "Intel Itanium";
-		break;
+		return machine[MACHINE_IA_64];
 	case EM_MIPS_X:
-		return "Stanford MIPS-X";
-		break;
+		return machine[MACHINE_MIPS_X];
 	case EM_X86_64:
-		return "AMD x86-64";
-		break;
+		return machine[MACHINE_X86_64];
 	case EM_MCST_ELBRUS:
-		return "MCST Elbrus";
-		break;
+		return machine[MACHINE_MSCT_ELBRUS];
 	case EM_AARCH64:
-		return "ARM AARCH64";
-		break;
+		return machine[MACHINE_AARCH64];
 	case EM_RISCV:
-		return "RISC-V";
-		break;
+		return machine[MACHINE_RISCV];
 	}
 
-	return "unknown";
+	return machine[MACHINE_UNKNOWN];
 }
 
 int is_elf_file(const char *filename)
@@ -212,15 +221,15 @@ void print_elf32_header(Elf32_Ehdr *hdr)
 
 	printf("  Version:                           %x\n", hdr->e_ident[EI_VERSION]);
 
-	const char *osabi = get_elf_osabi(hdr->e_ident[EI_OSABI]);
-	printf("  OS ABI:                            %s\n", osabi);
+	const char *p_osabi = get_elf_osabi(hdr->e_ident[EI_OSABI]);
+	printf("  OS ABI:                            %s\n", p_osabi);
 
 	printf("  ABI Version:                       %x\n", hdr->e_ident[EI_ABIVERSION]);;
 
 	printf("  Type:                              %s\n", type[hdr->e_type]);
 
-	const char *machine = get_elf_machine(hdr->e_machine);
-	printf("  Machine:                           %s\n", machine);
+	const char *p_machine = get_elf_machine(hdr->e_machine);
+	printf("  Machine:                           %s\n", p_machine);
 
 	printf("  Version:                           %#0x\n", hdr->e_version);
 	printf("  Entry point address:               %#0x\n", hdr->e_entry);
@@ -256,15 +265,15 @@ void print_elf64_header(Elf64_Ehdr *hdr)
 
 	printf("  Version:                           %x\n", hdr->e_ident[EI_VERSION]);
 
-	const char *osabi = get_elf_osabi(hdr->e_ident[EI_OSABI]);
-	printf("  OS ABI:                            %s\n", osabi);
+	const char *p_osabi = get_elf_osabi(hdr->e_ident[EI_OSABI]);
+	printf("  OS ABI:                            %s\n", p_osabi);
 
 	printf("  ABI Version:                       %x\n", hdr->e_ident[EI_ABIVERSION]);;
 
 	printf("  Type:                              %s\n", type[hdr->e_type]);
 
-	const char *machine = get_elf_machine(hdr->e_machine);
-	printf("  Machine:                           %s\n", machine);
+	const char *p_machine = get_elf_machine(hdr->e_machine);
+	printf("  Machine:                           %s\n", p_machine);
 
 	printf("  Version:                           %#0x\n", hdr->e_version);
 	printf("  Entry point address:               %#0lx\n", hdr->e_entry);

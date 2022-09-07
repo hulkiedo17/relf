@@ -5,17 +5,6 @@
 #include <errno.h>
 #include <error.h>
 
-void p_err(const char *fmt, ...)
-{
-	va_list ap;
-
-	va_start(ap, fmt);
-	vfprintf(stderr, fmt, ap);
-	va_end(ap);
-
-	exit(EXIT_FAILURE);
-}
-
 FILE* fopen_wrap(const char *filename, const char *mode)
 {
 	assert(filename != NULL);
@@ -50,4 +39,13 @@ size_t fread_wrap(void *buf, size_t size, size_t n, FILE *fp)
 		error(EXIT_FAILURE, errno, "fread() failed: %zu", readed);
 	
 	return readed;
+}
+
+void help(void)
+{
+	fprintf(stdout, "usage: relf [options]\n\n");
+	fprintf(stdout, "options:\n");
+	fprintf(stdout, "\t-h        - help message\n");
+	fprintf(stdout, "\t-e [file] - prints elf header of specified executable file\n");
+	//fprintf(stdout, "\t-p [file] - prints program header of specified executable file\n");
 }
