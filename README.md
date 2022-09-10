@@ -4,7 +4,7 @@ relf is simple elf (Executable and Linkable Format) files reader.
 
 # Features
 
-Right now this program can read and print elf header of executable files. In the future i will add more options so you can see what the executable file contains (See TODO section).
+Right now this program can read and print elf header and program headers of executable files. In the future i will add more options so you can see what the executable file contains (See TODO section).
 
 # Dependencies
 
@@ -34,6 +34,7 @@ usage: relf [options...]
 options:
 	-h        - help message
 	-e [file] - prints elf header of specified executable file
+	-p [file] - prints program header of specified executable file
 ```
 
 Build script options (also type -h option):
@@ -51,7 +52,7 @@ options:
 
 # TODO
 
-- [ ] option to print program header
+- [x] option to print program header
 - [ ] option to print section header
 - [ ] option to print string and symbol tables
 - [ ] option to print notes

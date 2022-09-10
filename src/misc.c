@@ -47,5 +47,5 @@ void help(void)
 	fprintf(stdout, "options:\n");
 	fprintf(stdout, "\t-h        - help message\n");
 	fprintf(stdout, "\t-e [file] - prints elf header of specified executable file\n");
-	//fprintf(stdout, "\t-p [file] - prints program header of specified executable file\n");
+	fprintf(stdout, "\t-p [file] - prints program header of specified executable file\n");
 }
