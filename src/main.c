@@ -40,9 +40,7 @@ static void print_elf_header(const char *filename)
 		free(elf64_header);
 	}
 	else
-	{
 		error(0, EBADF, "unknown elf file class");
-	}
 }
 
 static void print_program_header(const char *filename)
@@ -82,9 +80,7 @@ static void print_program_header(const char *filename)
 		free(elf64_header);
 	}
 	else
-	{
 		error(0, EBADF, "unknown elf file class");
-	}
 }
 
 int main(int argc, char **argv)

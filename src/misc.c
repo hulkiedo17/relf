@@ -25,13 +25,16 @@ void* malloc_wrap(size_t size)
 
 	buf = malloc(size);
 	if(!buf)
-		error(EXIT_FAILURE, errno, "malloc() failed");
+		error(EXIT_FAILURE, errno, "cannot allocate memory");
 	
 	return buf;
 }
 
 size_t fread_wrap(void *buf, size_t size, size_t n, FILE *fp)
 {
+	assert(buf != NULL);
+	assert(fp != NULL);
+
 	size_t readed;
 
 	readed = fread(buf, size, n, fp);
