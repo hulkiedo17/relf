@@ -25,7 +25,7 @@ enum {
 	P_GNU_EH_FRAME
 };
 
-const char * const program_header_type_names[] = {
+static const char * const program_header_type_names[] = {
 	"NULL        ",
 	"LOAD        ",
 	"DYNAMIC     ",

@@ -36,7 +36,12 @@ elif build_type == 'release'
 endif
 
 incdir = include_directories('include')
-src = ['src/main.c', 'src/misc.c', 'src/elf_header.c', 'src/program_header.c']
+src = [
+	'src/main.c',
+	'src/misc.c',
+	'src/elf_header.c',
+	'src/program_header.c',
+	'src/section_header.c']
 
 executable('relf',
 	sources : src,

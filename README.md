@@ -32,9 +32,11 @@ Program options (type -h option):
 usage: relf [options...]
 
 options:
-	-h        - help message
-	-e [file] - prints elf header of specified executable file
-	-p [file] - prints program header of specified executable file
+	-h        - prints help message
+	-e        - prints elf header
+	-p        - prints program headers
+	-s        - prints section headers
+	-f [file] - specifies the input executable file
 ```
 
 Build script options (also type -h option):

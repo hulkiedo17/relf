@@ -151,7 +151,7 @@ int is_elf_file(const char *filename)
 	return strcmp(buffer, ELFMAG);
 }
 
-int check_elf_class(const char *filename)
+int get_elf_class(const char *filename)
 {
 	assert(filename != NULL);
 
@@ -287,4 +287,3 @@ void print_elf64_header(Elf64_Ehdr *hdr)
 	printf("  Number of section headers:         %d\n", hdr->e_shnum);
 	printf("  Section header string table index: %d\n", hdr->e_shstrndx);
 }
-

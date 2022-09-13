@@ -49,6 +49,8 @@ void help(void)
 	fprintf(stdout, "usage: relf [options...]\n\n");
 	fprintf(stdout, "options:\n");
 	fprintf(stdout, "\t-h        - help message\n");
-	fprintf(stdout, "\t-e [file] - prints elf header of specified executable file\n");
-	fprintf(stdout, "\t-p [file] - prints program header of specified executable file\n");
+	fprintf(stdout, "\t-e        - prints elf header\n");
+	fprintf(stdout, "\t-p        - prints program headers\n");
+	fprintf(stdout, "\t-s        - prints section headers\n");
+	fprintf(stdout, "\t-f [file] - specifies the input executable file\n");
 }
