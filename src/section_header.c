@@ -147,14 +147,14 @@ static void print_section64_header(Elf64_Shdr *section_header, char *strtab_buff
 	const char *section_type = get_section_header_type(section_header->sh_type);
 	char *section_flags = get_section_header_flags(section_header->sh_flags);
 
-	printf("  [%2zu] %-20s %-18s %018lx %018lx\n",
+	printf("  [%2zu] %-18s %-16s %016lx %016lx\n",
 		count_section,
 		section_name,
 		section_type,
 		section_header->sh_addr,
 		section_header->sh_offset);
 
-	printf("       %018lx   %018lx %6s  %2d   %2d       %2ld\n",
+	printf("       %016lx   %016lx %6s  %2d   %2d     %2ld\n",
 		section_header->sh_size,
 		section_header->sh_entsize,
 		section_flags,
@@ -279,8 +279,8 @@ void print_section64_headers(Elf64_Shdr *section_headers, Elf64_Ehdr *elf_header
 	printf("There are %d section headers, starting at offset %#04lx\n\n", elf_header->e_shnum, elf_header->e_shoff);
 
 	printf("Section headers:\n");
-	printf("  [Nr] Name                 Type               Address            Offset\n");
-	printf("       Size                 EntSize            Flags Link Info    Align\n");
+	printf("  [Nr] Name               Type             Address          Offset\n");
+	printf("       Size               EntSize          Flags Link Info  Align\n");
 
 	for(size_t i = 0; i < elf_header->e_shnum; i++)
 		print_section64_header(&section_headers[i], strtab_buffer, i);

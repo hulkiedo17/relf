@@ -105,7 +105,7 @@ static void print_program32_header(Elf32_Phdr *header)
 	ptype = get_program_header_type(header->p_type);
 	pflags = get_program_header_flags(header->p_flags);
 
-	printf("  %-12s %#010x %#010x %#010x %#010x %#010x %-5s %#0x\n",
+	printf("  %-12s %#010x %#010x %#010x %#010x %#010x %-3s %#0x\n",
 		ptype,
 		header->p_offset,
 		header->p_vaddr,
@@ -196,7 +196,7 @@ void print_program32_headers(Elf32_Phdr *program_headers, Elf32_Ehdr *elf_header
 	printf("Executable have %d program headers, starting at offset %d\n\n", elf_header->e_phnum, elf_header->e_phoff);
 
 	printf("Program headers:\n");
-	printf("  Type         Offset     VirtAddr   PhysAddr   FileSize   MemSize    Flags Align\n");
+	printf("  Type         Offset     VirtAddr   PhysAddr   FileSize   MemSize    Flg Align\n");
 
 	for(size_t i = 0; i < elf_header->e_phnum; i++)
 		print_program32_header(&program_headers[i]);
