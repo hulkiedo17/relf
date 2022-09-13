@@ -32,6 +32,7 @@ Program options (type -h option):
 usage: relf [options...]
 
 options:
+	-v        - prints program version
 	-h        - prints help message
 	-e        - prints elf header
 	-p        - prints program headers

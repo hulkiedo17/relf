@@ -141,11 +141,14 @@ int main(int argc, char **argv)
 	bool is_program_header = false;
 	bool is_section_header = false;
 	char *input_file = NULL;
-	const char * const shortopts = "hepsf:";
+	const char * const shortopts = "vhepsf:";
 
 	while((result = getopt(argc, argv, shortopts)) != -1)
 	{
 		switch(result) {
+		case 'v':
+			version();
+			exit(EXIT_SUCCESS);
 		case 'h':
 			help();
 			exit(EXIT_SUCCESS);

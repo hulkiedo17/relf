@@ -8,6 +8,8 @@
 #include <errno.h>
 #include <error.h>
 
+static const char * const program_version = "0.1";
+
 FILE* fopen_wrap(const char *filename, const char *mode)
 {
 	assert(filename != NULL);
@@ -91,9 +93,15 @@ void help(void)
 {
 	fprintf(stdout, "usage: relf [options...]\n\n");
 	fprintf(stdout, "options:\n");
-	fprintf(stdout, "\t-h        - help message\n");
+	fprintf(stdout, "\t-v        - prints program version\n");
+	fprintf(stdout, "\t-h        - prints help message\n");
 	fprintf(stdout, "\t-e        - prints elf header\n");
 	fprintf(stdout, "\t-p        - prints program headers\n");
 	fprintf(stdout, "\t-s        - prints section headers\n");
 	fprintf(stdout, "\t-f [file] - specifies the input executable file\n");
+}
+
+void version(void)
+{
+	fprintf(stdout, "relf v%s\n", program_version);
 }
