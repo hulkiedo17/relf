@@ -55,6 +55,6 @@ options:
 # TODO
 
 - [x] option to print program header
-- [ ] option to print section header
+- [x] option to print section header
 - [ ] option to print string and symbol tables
 - [ ] option to print notes

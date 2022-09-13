@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdarg.h>
 #include <assert.h>
+#include <elf.h>
+#include <sys/stat.h>
 #include <errno.h>
 #include <error.h>
 
@@ -42,6 +45,46 @@ size_t fread_wrap(void *buf, size_t size, size_t n, FILE *fp)
 		error(EXIT_FAILURE, errno, "fread() failed: %zu", readed);
 	
 	return readed;
+}
+
+int is_elf_file(const char *filename)
+{
+	assert(filename != NULL);
+
+	int ret;
+	char buffer[SELFMAG];
+	struct stat statbuf;
+	FILE *fp = NULL;
+
+	ret = stat(filename, &statbuf);
+	if(ret < 0)
+		error(EXIT_FAILURE, errno, "cannot access file \'%s\'", filename);
+
+	if(!S_ISREG(statbuf.st_mode))
+		error(EXIT_FAILURE, EBADF, "\'%s\' is not an ordinary file", filename);
+
+	fp = fopen_wrap(filename, "rb");
+
+	fread_wrap(buffer, SELFMAG, 1, fp);
+
+	fclose(fp);
+
+	return strcmp(buffer, ELFMAG);
+}
+
+int get_elf_class(const char *filename)
+{
+	assert(filename != NULL);
+
+	char buffer[EI_NIDENT];
+	FILE *fp = NULL;
+
+	fp = fopen_wrap(filename, "rb");
+
+	fread_wrap(buffer, EI_NIDENT, 1, fp);
+
+	fclose(fp);
+	return buffer[EI_CLASS];
 }
 
 void help(void)
