@@ -134,14 +134,47 @@ static void print_section_header(const char *filename)
 		error(0, EBADF, "unknown elf file class");
 }
 
+/*static void print_symbol_table(const char *filename)
+{
+	if(!filename)
+		error(EXIT_FAILURE, EINVAL, "you did not provide input file");
+
+	int is_elf, elf_class;
+	char *section_strtab_buffer = NULL;
+	Elf32_Ehdr *elf32_header = NULL;
+	Elf64_Ehdr *elf64_header = NULL;
+	Elf32_Shdr *section32_headers = NULL;
+	Elf64_Shdr *section64_headers = NULL;
+
+	is_elf = is_elf_file(filename);
+	if(is_elf != 0)
+	{
+		error(0, ENOEXEC, "\'%s\' is not executable file", filename);
+		return;
+	}
+
+	elf_class = get_elf_class(filename);
+	if(elf_class == ELFCLASS32)
+	{
+
+	}
+	else if(elf_class == ELFCLASS64)
+	{
+
+	}
+	else
+		error(0, EBADF, "unknown elf file class");
+}*/
+
 int main(int argc, char **argv)
 {
 	int result;
 	bool is_elf_header = false;
 	bool is_program_header = false;
 	bool is_section_header = false;
+	//bool is_symbol_table = false;
 	char *input_file = NULL;
-	const char * const shortopts = "vhepsf:";
+	const char * const shortopts = "vhaepsf:";	// S
 
 	while((result = getopt(argc, argv, shortopts)) != -1)
 	{
@@ -152,6 +185,12 @@ int main(int argc, char **argv)
 		case 'h':
 			help();
 			exit(EXIT_SUCCESS);
+		case 'a':
+			is_elf_header =
+			is_program_header =
+			is_section_header = true;
+			//is_symbol_table = true;
+			break;
 		case 'e':
 			is_elf_header = true;
 			break;
@@ -161,6 +200,9 @@ int main(int argc, char **argv)
 		case 's':
 			is_section_header = true;
 			break;
+		/*case 'S':
+			is_symbol_table = true;
+			break;*/
 		case 'f':
 			input_file = strdup(optarg);
 			break;
@@ -173,6 +215,8 @@ int main(int argc, char **argv)
 		print_program_header(input_file);
 	if(is_section_header)
 		print_section_header(input_file);
+	//if(is_symbol_table)
+	//	print_symbol_table(input_file);
 
 	free(input_file);
 	return EXIT_SUCCESS;

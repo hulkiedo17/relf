@@ -95,6 +95,7 @@ void help(void)
 	fprintf(stdout, "options:\n");
 	fprintf(stdout, "\t-v        - prints program version\n");
 	fprintf(stdout, "\t-h        - prints help message\n");
+	fprintf(stdout, "\t-a        - equivalent to: -e -p -s\n");
 	fprintf(stdout, "\t-e        - prints elf header\n");
 	fprintf(stdout, "\t-p        - prints program headers\n");
 	fprintf(stdout, "\t-s        - prints section headers\n");

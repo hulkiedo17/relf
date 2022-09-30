@@ -34,6 +34,7 @@ usage: relf [options...]
 options:
 	-v        - prints program version
 	-h        - prints help message
+	-a        - equivalent to: -e -p -s
 	-e        - prints elf header
 	-p        - prints program headers
 	-s        - prints section headers
